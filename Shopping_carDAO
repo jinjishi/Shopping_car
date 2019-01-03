@@ -1,0 +1,12 @@
+package intership2.dao;
+import java.lang.Exception;
+import java.util.ArrayList;
+
+import intership2.dao.Shopping_car;
+public interface Shopping_carDAO {
+	public boolean addShopping_car(Shopping_car shopping_car) throws Exception; 
+	public boolean delShopping_car(String sql) throws Exception; 
+	public boolean updateShopping_car(String sql) throws Exception;
+	public ArrayList<Shopping_car> getShopping_car(String sql) throws Exception;
+
+}
