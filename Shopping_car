@@ -1,0 +1,18 @@
+# Shopping_car
+package intership2.dao;
+public class Shopping_car{
+public String Shopping_carid;
+public String Nickname;
+public String GetterShopping_carid() {
+	return this.Shopping_carid;
+}
+public void SetterShopping_carid(String Shopping_carid) {
+	this.Shopping_carid=Shopping_carid;
+}
+public String GetterNickname() {
+	return this.Nickname;
+}
+public void SetterNickname(String Nickname) {
+	this.Nickname=Nickname;
+}
+}
