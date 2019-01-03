@@ -1,0 +1,132 @@
+package intership2.dao;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import intership2.dao.DbcpJdbcUtil;
+import intership2.dao.Shopping_car;
+import java.sql.Connection; 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.lang.Exception;
+public class Shopping_carDAOImpl implements Shopping_carDAO {
+	public boolean addShopping_car(Shopping_car shopping_car) throws Exception {
+		boolean result=false;
+		Connection connection = null; 
+		PreparedStatement pStatement = null; 
+		try { 
+			connection = DbcpJdbcUtil.getConnection(); 
+		    String sql = "use shopping insert into Shopping_car(Shopping_carid,Nickname) values (?,?)";
+		    pStatement = connection.prepareStatement(sql);
+			pStatement.setString(1,shopping_car.GetterShopping_carid()); 
+		    pStatement.setString(2,shopping_car.GetterNickname()); 
+		    pStatement.execute(); 
+		    result=true;
+		    System.out.println("result="+result);
+		    pStatement.close(); 
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			result=false;
+			} finally { 
+				try { 
+					connection.close();
+					} catch (SQLException e) { 
+						e.printStackTrace();
+						}
+				}
+		return result;
+		}
+	public boolean delShopping_car(String sql) throws Exception {
+		boolean result=false;
+		Connection connection = null; 
+		PreparedStatement pStatement = null; 
+		try {
+			connection = DbcpJdbcUtil.getConnection(); 
+			pStatement = connection.prepareStatement(sql); 
+			pStatement.execute();  
+			int count=pStatement.getUpdateCount();
+			if(count!=-1) {
+				result=true;
+			}
+			else {
+				result=false;
+			}
+			System.out.println("result="+result);
+		}catch (SQLException e) { 
+			e.printStackTrace();
+			result=false;
+			} finally { 
+				try { 
+					connection.close();
+					} catch (SQLException e) { 
+						e.printStackTrace();
+						}
+				}
+		return result;
+		}
+	public ArrayList<Shopping_car> getShopping_car(String sql) throws Exception{
+		PreparedStatement pStatement = null; 
+		Connection connection = null;
+		ArrayList<Shopping_car> shopping_cars=new ArrayList<Shopping_car>();
+		boolean result=false;
+		try {
+			connection = DbcpJdbcUtil.getConnection(); 
+		    pStatement =connection.prepareStatement(sql);
+			ResultSet rs=pStatement.executeQuery();
+			while(rs.next()) {
+				Shopping_car shopping_car=new Shopping_car();
+				shopping_car.SetterShopping_carid(rs.getString(1));
+				shopping_car.SetterNickname(rs.getString(2));
+				System.out.printf(shopping_car.GetterShopping_carid()+"\t");
+				System.out.printf(shopping_car.GetterNickname()+"\n");
+			}
+			result=true;
+			System.out.println("result="+result);
+		}catch (SQLException e) { 
+			e.printStackTrace();
+			} 
+				try { 
+					connection.close();
+					} catch (SQLException e) { 
+						e.printStackTrace();
+						}
+				return shopping_cars;
+				}
+	@SuppressWarnings("null")
+	public boolean updateshopping_car(String sql) throws Exception
+	{
+		Connection connection = null;
+		PreparedStatement pStatement = null; 
+		boolean result=false;
+		try {
+			connection = DbcpJdbcUtil.getConnection(); 
+			pStatement=connection.prepareStatement(sql);
+			pStatement.execute();  
+			int count=pStatement.getUpdateCount();
+			if(count!=-1)
+			{
+				result=true;
+			}
+			else
+			{
+				result=false;
+			}
+			System.out.println("result="+result);
+		}catch (SQLException e) { 
+				e.printStackTrace();
+				result=false;
+				} finally { 
+					try { 
+						connection.close();
+						} catch (SQLException e) { 
+							e.printStackTrace();
+							}
+					}
+			return result;
+			}
+	@Override
+	public boolean updateShopping_car(String sql) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	}
+
